@@ -1,4 +1,5 @@
-use actix_web::{get, App, Error, HttpResponse, HttpServer, Responder, Scope};
+use actix_web::{get, middleware, App, Error, HttpResponse, HttpServer, Responder, Scope};
+// use clap::{App, Arg};
 
 mod services;
 
@@ -9,16 +10,34 @@ struct ServerInfo {
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+  let matches = clap::App::new("Saga Choreographer")
+    .version("0.1.0")
+    .author("Alex S. <alexstrive@pm.me>")
+    .arg(
+      clap::Arg::with_name("port")
+        .short("p")
+        .long("port")
+        .default_value("8080"),
+    )
+    .arg(
+      clap::Arg::with_name("bind-address")
+        .short("b")
+        .long("bind-address")
+        .default_value("localhost"),
+    )
+    .get_matches();
+
   let server_info = ServerInfo {
-    port: std::env::var("PORT").unwrap_or("3050".to_owned()),
-    address: std::env::var("ADDRESS").unwrap_or("localhost".to_owned()),
+    port: matches.value_of("port").unwrap().to_owned(),
+    address: matches.value_of("bind-address").unwrap().to_owned(),
   };
 
   let url = format!("{}:{}", server_info.address, server_info.port);
 
   HttpServer::new(|| {
-    let app = App::new();
-    app.service(services::templates())
+    App::new()
+    // .configure(services::kafka)
+    // .service(services::templates())
   })
   .bind(url)?
   .run()

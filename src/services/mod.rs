@@ -1,4 +1,4 @@
-use actix_web::{web, Scope};
+use actix_web::{web, HttpResponse, Scope};
 
 async fn index() -> String {
   format!("Hello, world! {}", 123)
@@ -13,3 +13,7 @@ pub fn templates() -> Scope {
     .route("/add", web::get().to(index))
     .route("/edit", web::post().to(post))
 }
+
+// pub fn kafka(cfg: &mut web::ServiceConfig) {
+//   cfg.service(web::scope("/kafka").route("/subscribe", web::get().to(|| HttpResponse::Ok())));
+// }
