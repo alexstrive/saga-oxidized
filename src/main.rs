@@ -1,5 +1,4 @@
-use actix_web::{get, middleware, App, Error, HttpResponse, HttpServer, Responder, Scope};
-// use clap::{App, Arg};
+use actix_web::{App, HttpServer};
 
 mod services;
 
