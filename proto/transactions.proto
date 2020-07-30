@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package transaction;
+
+service Arbiter {
+  rpc initiateTransaction(Saga) returns (ArbiterResponse);
+
+  rpc advance(Saga) returns (ArbiterResponse);
+}
+
+message Saga {
+  repeated string name = 1;
+}
+
+message ArbiterResponse {
+
+}

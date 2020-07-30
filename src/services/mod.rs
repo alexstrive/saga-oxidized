@@ -1,12 +1,9 @@
-use actix_web::{web, HttpResponse, Scope};
+use actix_web::{web, Scope};
 
 async fn index() -> String {
   format!("Hello, world! {}", 123)
 }
-
-async fn post() -> String {
-  format!("Post accessed")
-}
+async fn post() -> String { format!("Post accessed") }
 
 pub fn templates() -> Scope {
   web::scope("/templates")

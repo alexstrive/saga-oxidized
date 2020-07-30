@@ -9,6 +9,7 @@ struct ServerInfo {
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+  let a = 3;
   let matches = clap::App::new("Saga Choreographer")
     .version("0.1.0")
     .author("Alex S. <alexstrive@pm.me>")
